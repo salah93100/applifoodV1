@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default function UserRestaurant({image}) {
+export default function UserRestaurant({src,alt,nameRestaurant}) {
   return (
-    <div className='w-64 p-4 flex flex-col '>
-    <div className='w-40'>
-    <img src="images/logo-dyd (1).png" alt=""/>
+    <div className='w-64 px-4 pb-4 flex flex-col gap-4'>
+    <div className=' reative h-36 justify-center'>
+    <img src="images/logo-dyd.svg" alt="" className='object-cover'/>
     </div>
-    <div>
-        <p>ID: Cofood</p>
+    <div className='text-center'>
+        <p className='font-semibold uppercase'>ID: Cofood</p>
     </div>
     </div>
   )
