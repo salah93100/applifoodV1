@@ -6,7 +6,7 @@ import { MdRestaurantMenu,MdStore,MdReceiptLong,MdDashboardCustomize,MdOutlineSe
 
 const Sidebar=({children})=> {
   return (
-    <nav className='w-64 p-4 border-y border-y-[#E5E9F2]'>
+    <nav className='w-64 py-4 px-2 border-y border-y-[#E5E9F2]'>
         <ul className='flex flex-col gap-2 m-0 p-0'> 
             <ItemSidebar target="/" itemName="Orders"  Icon={MdReceiptLong}/>
             <ItemSidebar target="/" itemName="Location" Icon={MdStore}/>
