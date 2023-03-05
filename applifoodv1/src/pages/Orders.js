@@ -1,8 +1,10 @@
-import React from "react";
+import {React,useState,useEffect} from "react";
 import { Space, Table, Tag ,Badge} from 'antd';
 import { MdOutlineExpandMore,MdOutlineExpandLess } from "react-icons/md";
 
 export default function Orders() {
+  const [columnss, setColumn] = useState([]);
+  const [dataSource, setDataSource] = useState([]);
 
   const ExpandedRowRender = ({data}) => {
     const columns = [
@@ -15,6 +17,8 @@ export default function Orders() {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        defaultSortOrder: 'descend',
+        sorter: (a, b) => a.name - b.name,
       },
       {
         title: 'Status',
@@ -34,80 +38,110 @@ export default function Orders() {
 
 
 
-  const dataSource = [
-    {
-      key: '1',
-      ordersID:"#hjf75c",
-      location:"Cuisine 1",
-      idReçu:"#7598222",
-      services:"uber",
-      status:"Delivered",
-      hourReceiv:"14:00:21 22/02/23",
-      details:[{
-        key: 'gffggs4',
-        date: '2014-12-24 23:12:00',
-        name: 'This is production name',
-        upgradeNum: 'Upgraded: 56',
-      }]
-
-      
-    },{
-      key: '2',
-      ordersID:"#jfdke7899",
-      location:"cuisine 3",
-      idReçu:"#kfkCD",
-      services:"Deliveroo",
-    
-      status:"En cours",
-      hourReceiv:"14:01:21 22/02/23",
-
-      
-    },
-   
-  ];
-  
-
   const columns = [
     {
       title: 'Orders-ID',
-      dataIndex: 'ordersID',
+      dataIndex: 'id',
       key: 'ordersID',
     },
     {
       title: 'Location',
-      dataIndex: 'location',
+      dataIndex: 'brand',
       key: 'location',
+      filters: [
+        {
+          text: 'Cuisine 1',
+          value: 'Cuisine 1',
+        },
+        {
+          text: 'cuisine 2 ',
+          value: 'cuisine 2',
+        },
+       
+      ],
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value, record) => record.location.startsWith(value),
+      width: '20%',
     },
     {
       title: 'ID reçu',
-      dataIndex: 'idReçu',
+      dataIndex: 'id',
       key: 'idReçu',
     },
     {
       title: 'Services',
-      dataIndex: 'services',
+      dataIndex: 'description',
       key: 'services',
     },
     {
       title: 'Status',
-      dataIndex: 'status',
+      dataIndex: 'stock',
       key: 'status',
+      filters: [
+        {
+          text: 'En cours',
+          value: 'En cours',
+        },
+        {
+          text: 'Canceled',
+          value: 'Canceled',
+        },
+       
+      ],
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value, record) => record.status.startsWith(value),
+      width: '20%',
     },
     {
       title: 'heure de ramassage',
-      dataIndex: 'hourReceiv',
+      dataIndex: 'title',
       key: 'hourReceiv',
+      filters: [
+        {
+          text: '14:00:21 22/02/23',
+          value: '14:00:21 22/02/23',
+        },
+        {
+          text: '14:01:21 22/02/23',
+          value: '14:01:21 22/02/23',
+        },
+       
+      ],
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value, record) => record.hourReceiv.startsWith(value),
+      width: '20%',
     }
   ];
+  const onChange = (pagination, filters, sorter, extra) => {
+  };
+
+useEffect(() => {
+  fetch('https://dummyjson.com/products')
+.then(res => res.json())
+.then((response)=>
+setDataSource(response.products));
+
+return () => {
+  setDataSource([]);
+
+};       
+
+}, []);
+
 
 
   return <div className="w-full ">
+   {console.log(dataSource[0])}
              <div className="my-4">
                <Table 
                   dataSource={dataSource}
+                 
                   columns={columns}
                      expandable={{
-      expandedRowRender:(record) => <ExpandedRowRender data={record.details} style={{float: 'right'}} />
+      expandedRowRender:(record) => <ExpandedRowRender data={record.images} style={{float: 'right'}} />
        
       ,
       rowExpandable: (record) => record.name !== 'Not Expandable',
