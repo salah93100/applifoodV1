@@ -1,3 +1,9 @@
+/* import tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .ant-table{
     margin-inline: 0px -16px !important;
 }

@@ -1,8 +1,8 @@
-import {React,useState,useEffect} from "react";
+import {useState,useEffect} from "react";
 import { Space, Table, Tag ,Badge} from 'antd';
 import { MdOutlineExpandMore,MdOutlineExpandLess } from "react-icons/md";
 
-export default function Orders() {
+export default function Orders(){
   const [columnss, setColumn] = useState([]);
   const [dataSource, setDataSource] = useState([]);
 

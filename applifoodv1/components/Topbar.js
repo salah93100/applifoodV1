@@ -1,4 +1,3 @@
-import React from 'react'
 
 import {MdNotificationsNone,MdAccountCircle} from "react-icons/md";
 

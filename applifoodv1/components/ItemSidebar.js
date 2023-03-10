@@ -1,4 +1,3 @@
-import React from 'react'
 
 const ItemSidebar=({target,itemName,Icon})=> {
   return (<li className='flex hover:bg-[#E5E9F2] rounded p-2'>
