@@ -3,7 +3,8 @@ import UserRestaurant from '../components/UserRestaurant'
 import Sidebar from '../components/Sidebar'
 import Topbar from '../components/Topbar'
 import Orders from '../components/Order'
-
+import Location from '../components/Location';
+import MenuPage from '../components/MenuCompoment';
 export default function HomePage() {
   return (
     <div>
@@ -20,7 +21,8 @@ export default function HomePage() {
      </div>
      <div className='flex-1 sticky ml-64 items-center '>
         <Topbar/>
-        <Orders/>
+        <MenuPage/>
+       
      </div>
     </div>
    
