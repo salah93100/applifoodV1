@@ -5,11 +5,13 @@ import { Space, Table,Tag } from 'antd';
 import { useState } from "react";
 import AddMenu from "./AddMenu";
 import PushMenu from "./PushMenu";
-
+import UpdateMenu from "./UpdateMenu";
 export default function MenuPage() {
   
   const [addMenuIsOpen, setAddMenuIsOpen] = useState(false);
-  const [pushMenuIsOpen, setPushMenuIsOpen] = useState({show:false,datar:[]});
+  const [pushMenuIsOpen, setPushMenuIsOpen] = useState({show:false,data:[]});
+  const [updateMenuIsOpen, setUpdateMenuIsOpen] = useState({show:false,data:{}});
+
 
   function closeAddMenu() {
     setAddMenuIsOpen(false);
@@ -22,7 +24,17 @@ export default function MenuPage() {
   function closePushMenu() {
     setPushMenuIsOpen({show:false,id:[]});
   }
+  const openPushMenu=()=>{
+    setPushMenuIsOpen({show:true,data:data});
+  }
 
+  const openUpdateMenu=(dataToUpdate)=>{
+    setUpdateMenuIsOpen({show:true,data:dataToUpdate});
+  }
+ 
+  function closeUpdateMenu() {
+    setUpdateMenuIsOpen({show:false,id:[]});
+  }
   const columns = [
     {
       title: 'Nom',
@@ -52,10 +64,11 @@ export default function MenuPage() {
       key: 'action',
       render: (_,record) => (
        <><div className="flex flex-row gap-2 w-28">
+        {console.log(record)}
            <ButtonWithIcon
             text={"Modifier"}
             Icon={MdModeEditOutline}
-            onClick={"toogleFilter"}
+            onClick={()=>openUpdateMenu(record)}
           />
           <ButtonWithIcon
           text={""}
@@ -77,27 +90,31 @@ export default function MenuPage() {
       {
         key: '1',
         imgUrl:'image.png',
-        name:'Burger Time',
+        menuName:'Burger Time',
+        LocalMenuName:'Burger Time',
         type: 'Burger',
+        descMenu:"description menu",
         dateCreateMenu:'20/03/2022'
       }, 
       {
         key: '2',
         imgUrl:'image2.jpg',
-        name:'Tacos Lyonnais',
+        menuName:'Tacos Lyonnais',
+        LocalMenuName:'Tacos Lyonnais',
         type: 'Tacos',
+        descMenu:"description menu",
         dateCreateMenu:'22/03/2022'
       }, 
       {
         key: '3',
-        name:'Tajine2.png',
+        menuName:'Tajine',
+        LocalMenuName:'Tajine',
         type: 'Plat traditionelle',
+        descMenu:"description menu",
         dateCreateMenu:'23/03/2022'
       }
     ];
-    const openPushMenu=()=>{
-      setPushMenuIsOpen({show:true,data:data});
-    }
+    
   return (
     <div className="m-2 p-4 space-y-2">
       <div className="flex justify-between">
@@ -129,7 +146,9 @@ export default function MenuPage() {
       </div>
       <AddMenu modalIsOpen={addMenuIsOpen} closeModal={closeAddMenu} />
       <PushMenu modalIsOpen={pushMenuIsOpen.show} closeModal={closePushMenu} data={pushMenuIsOpen.data}/>
+      <UpdateMenu modalIsOpen={updateMenuIsOpen.show} closeModal={closeUpdateMenu} data={updateMenuIsOpen.data}/>
 
+     
       
     </div>
   );
