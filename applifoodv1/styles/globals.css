@@ -23,7 +23,9 @@ select {
 .ant-table-thead .ant-table-cell {
     background-color: white !important;
   }
-  
+.ant-select-selector{
+    padding: 10px !important;
+}
 
 
 label{

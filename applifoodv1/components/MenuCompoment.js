@@ -4,9 +4,12 @@ import { MdHistory, MdAdd, MdFileUpload,MdModeEditOutline,MdRemoveRedEye,MdMoreH
 import { Space, Table,Tag } from 'antd';
 import { useState } from "react";
 import AddMenu from "./AddMenu";
+import PushMenu from "./PushMenu";
+
 export default function MenuPage() {
   
   const [addMenuIsOpen, setAddMenuIsOpen] = useState(false);
+  const [pushMenuIsOpen, setPushMenuIsOpen] = useState({show:false,datar:[]});
 
   function closeAddMenu() {
     setAddMenuIsOpen(false);
@@ -14,6 +17,10 @@ export default function MenuPage() {
 
   const openAddMenu=()=>{
     setAddMenuIsOpen(true);
+  }
+ 
+  function closePushMenu() {
+    setPushMenuIsOpen({show:false,id:[]});
   }
 
   const columns = [
@@ -88,6 +95,9 @@ export default function MenuPage() {
         dateCreateMenu:'23/03/2022'
       }
     ];
+    const openPushMenu=()=>{
+      setPushMenuIsOpen({show:true,data:data});
+    }
   return (
     <div className="m-2 p-4 space-y-2">
       <div className="flex justify-between">
@@ -102,7 +112,7 @@ export default function MenuPage() {
           <ButtonWithIcon
             text={"Mettre en ligne"}
             Icon={MdFileUpload}
-            onClick={"toogleFilter"}
+            onClick={openPushMenu}
           />
 
           <ButtonWithIcon
@@ -118,7 +128,9 @@ export default function MenuPage() {
         <Table columns={columns} dataSource={data} />
       </div>
       <AddMenu modalIsOpen={addMenuIsOpen} closeModal={closeAddMenu} />
+      <PushMenu modalIsOpen={pushMenuIsOpen.show} closeModal={closePushMenu} data={pushMenuIsOpen.data}/>
 
+      
     </div>
   );
 }

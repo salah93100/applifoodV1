@@ -1,7 +1,7 @@
 
  const InputSelect = ({name,label,onChange,value,options}) => {
   return (
-    <div className="flex flex-col p">
+    <div className="flex flex-col ">
    <label className="block mb-1 text-xl font-medium "
    for={name}>{label}</label>
 {console.log(value)}

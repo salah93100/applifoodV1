@@ -18,6 +18,7 @@ const ServicesCollapse =({img,text,openServicesModal})=>{
        </div>  
        <div className='flex'>
        <ButtonWithIcon text={"Modifier"} Icon={MdModeEditOutline} onClick={openServicesModal}/>
+       
        </div>
      </div>
     

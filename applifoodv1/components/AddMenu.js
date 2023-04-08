@@ -4,6 +4,7 @@ import ModalInput from "./ModalInput";
 import { useState } from "react";
 import InputSelect  from "./InputSelect";
 const AddMenu = ({ modalIsOpen, closeModal }) => {
+    
 const [dataMenu, setDataMenu] = useState( {
     key: Math.round(Math.random() * 10),
     imgUrl:'',
