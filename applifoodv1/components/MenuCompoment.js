@@ -38,8 +38,8 @@ export default function MenuPage() {
   const columns = [
     {
       title: 'Nom',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'menuName',
+      key: 'menuName',
       render: (text) => <a>{text}</a>,
     },
     {
