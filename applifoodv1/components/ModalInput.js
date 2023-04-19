@@ -1,5 +1,5 @@
 
-const ModalInput =({label,name,handleChange,value})=>{
+const ModalInput =({label,name,handleChange,value,placeHolder})=>{
 
     return(
       <div className="flex flex-col">
@@ -13,6 +13,7 @@ const ModalInput =({label,name,handleChange,value})=>{
          value={value}
          className="border  w-full py-3 rounded focus:ring-blue-500 focus:border-blue-500 px-3"
          onChange={handleChange}
+         placeholder={placeHolder}
                 />
       </div>
     

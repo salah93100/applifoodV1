@@ -1,33 +1,83 @@
 import { useState, useEffect } from "react";
 import { Space, Table, Tag, Badge } from "antd";
 import { MdOutlineExpandMore, MdOutlineExpandLess } from "react-icons/md";
+import Image from "next/image";
 
 export default function Orders() {
   const [columnss, setColumn] = useState([]);
   const [dataSource, setDataSource] = useState([]);
 
+
+const arrayTestOrder=
+[ {id: 1, 
+  location: "Délices d'ailleurs", 
+  idReceip: "#CB57893", 
+  services: "uber-eats", 
+  status: "Livrer",
+  hourReceivCommand:"27/04/2023",
+  details:[{
+    dataDetails:"27/04/2023",
+    dataName:"Sandwich poisson",
+    dataStatus:"d",
+    dataUpgradeStatus:"Livrer",
+  },
+]
+
+},{id: 2, 
+  location: "MyFrench Cantine", 
+  idReceip: "#CB57893", 
+  services: "deliveroo-logo", 
+  status: "En cours",
+  hourReceivCommand:"28/04/2023",
+  details:[{
+    dataDetails:"28/04/2023",
+    dataName:"pâtes carbonara",
+    dataStatus:"Livrer",
+    dataUpgradeStatus:"en cours",
+  },
+  
+]
+
+},{id: 3, 
+  location: "Bendjab", 
+  idReceip: "#CB57893", 
+  services: "just-eat", 
+  status: "Annuler",
+  hourReceivCommand:"28/04/2023",
+  details:[{
+    dataDetails:"28/04/2023",
+    dataName:"poulet riz curry",
+    dataStatus:"Livrer",
+    dataUpgradeStatus:"en cours",
+  },
+  
+]
+
+}]
+
+
   const ExpandedRowRender = ({ data }) => {
     const columns = [
       {
         title: "Date",
-        dataIndex: "date",
+        dataIndex: "dataDetails",
         key: "date",
       },
       {
-        title: "Name",
-        dataIndex: "name",
+        title: "Name Menu",
+        dataIndex: "dataName",
         key: "name",
         defaultSortOrder: "descend",
         sorter: (a, b) => a.name - b.name,
       },
       {
         title: "Status",
-        key: "state",
+        key: "dataStatus",
         render: () => <Badge status="success" text="Finished" />,
       },
       {
         title: "Upgrade Status",
-        dataIndex: "upgradeNum",
+        dataIndex: "dataUpgradeStatus",
         key: "upgradeNum",
       },
     ];
@@ -35,6 +85,7 @@ export default function Orders() {
     return (
       <Table
         className=""
+      
         columns={columns}
         dataSource={data}
         pagination={false}
@@ -50,7 +101,7 @@ export default function Orders() {
     },
     {
       title: "Location",
-      dataIndex: "brand",
+      dataIndex: "location",
       key: "location",
       filters: [
         {
@@ -69,18 +120,55 @@ export default function Orders() {
     },
     {
       title: "ID reçu",
-      dataIndex: "id",
+      dataIndex: "idReceip",
       key: "idReçu",
     },
     {
       title: "Services",
-      dataIndex: "description",
-      key: "services",
+      dataIndex: "services",
+      key: "services",  
+      render:(_, { services })=>{
+       
+        return (
+          <Image 
+          src={`../../../images/${services}.svg`}  
+        alt="Services"
+        width={50}
+        height={50}
+        className='object-cover'/>
+        );
+    
+      },
     },
     {
       title: "Status",
-      dataIndex: "stock",
+      dataIndex: "status",
       key: "status",
+      render:(_, { status })=>{
+       
+       if(status==="Livrer"){
+        return ( <Tag color={"green"} key={status}>
+        {status}
+      </Tag>)
+      
+       }
+       else if(status==="En cours"){
+        return ( <Tag color={"orange"} key={status}>
+        {status}
+      </Tag>)
+      
+       }
+       else if(status==="Annuler"){
+        return ( <Tag color={"red"} key={status}>
+        {status}
+      </Tag>)
+      
+       }
+       
+     
+        
+   
+      },
       filters: [
         {
           text: "En cours",
@@ -98,7 +186,7 @@ export default function Orders() {
     },
     {
       title: "heure de ramassage",
-      dataIndex: "title",
+      dataIndex: "hourReceivCommand",
       key: "hourReceiv",
       filters: [
         {
@@ -130,15 +218,19 @@ export default function Orders() {
 
   return (
     <div className="w-full ">
-      {console.log(dataSource[0])}
-      <div className="my-4">
+      {console.log(dataSource)}
+      
+      
+      <div className="my-4 px-2">
+
         <Table
-          dataSource={dataSource}
+          dataSource={arrayTestOrder}
+          rowKey={(record) => record.id} 
           columns={columns}
           expandable={{
             expandedRowRender: (record) => (
               <ExpandedRowRender
-                data={record.images}
+                data={record.details}
                 style={{ float: "right" }}
               />
             ),
@@ -170,3 +262,4 @@ export default function Orders() {
     </div>
   );
 }
+

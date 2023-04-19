@@ -5,7 +5,15 @@ import { MdModeEditOutline,MdAdd,MdAccessTime} from "react-icons/md";
 import ServicesCollapse from "./ServicesCollapse";
 import Image from "next/image";
 
-export const CollapseItem = ({open,toogle,tittle,nbServices,imageSrc,openServicesModal,openModal}) => {
+export const CollapseItem = ({open,
+  toogle,
+  imageSrc,
+  openServicesModal,
+  openModal,
+  colapseData,
+  openAddChannelServices,
+  serviceChannel,
+  setDataLocation}) => {
   
     return (
     <div className="pt-[10px] ">
@@ -16,8 +24,8 @@ export const CollapseItem = ({open,toogle,tittle,nbServices,imageSrc,openService
         src={""}
         alt="Logo Location"
         />
-          <p>{tittle}</p>
-          <p>{nbServices} Marque virtuel</p>
+          <p>{colapseData.locationName}</p>
+          <p>{colapseData.nbServices} Marque virtuel</p>
           </div>
           <div className="">
             {open?(<MdOutlineExpandLess size={18}/>):
@@ -29,13 +37,23 @@ export const CollapseItem = ({open,toogle,tittle,nbServices,imageSrc,openService
     <div className="bg-[#F9FAFC]  px-4 pb-[20px] flex flex-col border py-3 space-y-6">
       <div className="flex flex-row gap-2">
     <ButtonWithIcon text="Modifier" Icon={MdModeEditOutline} onClick={openModal}/>
-    <ButtonWithIcon text="Marques Virtuelle" Icon={MdAdd}/>
+    <ButtonWithIcon text="Marques Virtuelle" Icon={MdAdd} onClick={()=>openAddChannelServices(colapseData.locationName)}/>
     <ButtonWithIcon text="Horaires" Icon={MdAccessTime}/>
     
     </div>
     <p>Services:</p>
-    <div className="flex flex-row">
-  <ServicesCollapse text={"Ghost restaurant"} openServicesModal={()=>openServicesModal(93)}/>
+    {console.log(serviceChannel)}
+    <div className="flex flex-col gap-3">
+ {serviceChannel? serviceChannel.map((services)=>{
+      return(
+        <div className="flex flex-row" key={services.urlStore}>
+        <ServicesCollapse 
+           text={services.deliveryService} 
+           openServicesModal={()=>openServicesModal(services,colapseData.locationName)}/>
+        </div>
+
+      )
+    }):(<p className="text-slate-400">Ajouter un service</p>)}
     </div>
     </div>
  

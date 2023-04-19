@@ -3,15 +3,38 @@ import { useState } from "react";
 import ButtonWithIcon from './ButtonWithIcon';
 import { MdFilterAlt,MdAdd,MdAccessTime} from "react-icons/md";
 import ModalCollapseRestaurant from './ModalCollapseRestaurant'
-import ModalCollapseServices from './ModalCollapseServices';
+import UpdateChannelServices from './UpdateChannelServices';
 import ModalAddLocation from './ModalAddLocation';
 import ModalInput from './ModalInput';
+import AddChannelServices from './AddChannelServices';
+
+
 
 const Location =({})=>{
 
     const [open, setOpen] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
     const [searchLocation, setSearchLocation] = useState("");
+    const arrayLocation = [
+      {locationName:"Crispy Nan",
+      nbServices:"3", 
+      imageSrc:"url:/Test Image",
+      serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"Uber",nameLocation:"Crispy Nan",id:0},
+      {urlStore:"url:/Test channel",deliveryService:"Deliveroo",nameLocation:"Crispy Nan",id:1},
+      {urlStore:"url:/Testchannel",deliveryService:"JustEat",nameLocation:"Crispy Nan",id:2}]},
+
+      {locationName:"Restaurant fruit de mer",
+      nbServices:"3",
+      imageSrc:"url:/Test Image",
+      serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"Deliveroo",nameLocation:"Restaurant fruit de mer",id:0}]},
+
+      {locationName:"Le Cabestant",
+      nbServices:"3",
+      imageSrc:"url:/Test Image",
+      serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"JustEat",nameLocation:"Le Cabestant",id:0}]}
+    ]
+    const [dataLocation, setDataLocation] = useState(arrayLocation);
+
     const toogle=(index)=>{
      if(open===index){
          return setOpen(null)
@@ -29,16 +52,20 @@ const Location =({})=>{
         console.log(key);
       };
       const [modalIsOpen, setModalIsOpen] = useState({show:false,id:""});
-      const [modalServicesIsOpen, setModalServicesIsOpen] = useState({show:false,id:""});
+      const [modalServicesIsOpen, setModalServicesIsOpen] = useState({show:false,dataUpdateServices:{},locationNameModal:""});
       const [modalAddServicesIsOpen, setModalAddServicesIsOpen] = useState({show:false,id:""});
+      const [modalAddChannelServices, setModalAddChannelServices] = useState({show:false,id:""});
 
   
       const openModal=(index)=>{
         setModalIsOpen({show:true,id:index});
       }
 
-      const openServicesModal=(index)=>{
-        setModalServicesIsOpen({show:true,id:index});
+      const openServicesModal=(data,locationNameModal)=>{
+        setModalServicesIsOpen({show:true,dataUpdateServices:data,locationNameModal:locationNameModal});
+      }
+      const openAddChannelServices=(index)=>{
+        setModalAddChannelServices({show:true,id:index});
       }
       const openAddServicesModal=()=>{
         setModalAddServicesIsOpen({show:true});
@@ -49,17 +76,16 @@ const Location =({})=>{
       function closeServicesModal() {
         setModalServicesIsOpen({show:false,id:""});
       }
+      function closeAddChannelServices() {
+        setModalAddChannelServices({show:false,id:""});
+      }
       function closeAddServicesModal() {
         setModalAddServicesIsOpen({show:false,id:""});
       }
       
 
 
-      const arrayLocation = [
-        {tittle:"restaurant 1",nbServices:"3", imageSrc:"url:/Test Image"},
-        {tittle:"restaurant 2",nbServices:"3", imageSrc:"url:/Test Image"},
-        {tittle:"restaurant 3",nbServices:"3", imageSrc:"url:/Test Image"}
-      ]
+  
       
     
     return (
@@ -76,47 +102,51 @@ const Location =({})=>{
        for={"searchLocation"}
        class="block mb-2 text-md font-medium ">Name :</label>
           <input
-         type="text"
-         id="searchLocation"
-         name="searchLocation"
-         value={searchLocation}
-         className="border w-72 py-2 rounded focus:ring-blue-500 focus:border-blue-500 px-3"
-         onChange={(e)=>{
-          setSearchLocation(e.target.value)
-        }}
+           type="text"
+           id="searchLocation"
+           name="searchLocation"
+           value={searchLocation}
+           className="border w-72 py-2 rounded focus:ring-blue-500 focus:border-blue-500 px-3"
+           onChange={(e)=>{
+           setSearchLocation(e.target.value)
+          }}
                 />
            </div>):""}
           
            </div>
-          {console.log(modalServicesIsOpen)}
-            <p className=''>Affiche {arrayLocation.length} de {arrayLocation.length} Établissements</p>
+          {console.log(dataLocation)}
+            <p className=''>Affiche {dataLocation.length} de {dataLocation.length} Établissements</p>
 
-            {arrayLocation.filter((filterLocation)=>{
+            {dataLocation.filter((filterLocation)=>{
               if (searchLocation==""){
                 return filterLocation
-              } else if(filterLocation.tittle.toLowerCase().includes(searchLocation.toLowerCase())){
+              } else if(filterLocation.locationName.toLowerCase().includes(searchLocation.toLowerCase())){
                 return filterLocation
               }
             }).map((Location,index)=>{
               return(
                 <CollapseItem 
                 key={index}
-                  open={open===index} 
-                tittle={Location.tittle} 
+                open={open===index} 
+                colapseData={Location} 
                 toogle={()=>toogle(index)} 
-                nbServices={Location.nbServices} 
                 imageSrc={Location.imageSrc}
                 openModal={()=>openModal(index)}
                 openServicesModal={openServicesModal}
+                openAddChannelServices={openAddChannelServices}
+                serviceChannel={Location.serviceChannel}
+                setDataLocation={setDataLocation}
+                locationName={Location.locationName}
                 />
                
               )
             })}
             
        
- <ModalAddLocation modalIsOpen={modalAddServicesIsOpen.show}  closeModal={closeAddServicesModal} />
-  <ModalCollapseRestaurant modalIsOpen={modalIsOpen.show} id={modalIsOpen.id} closeModal={closeModal} />
-          <ModalCollapseServices modalServicesIsOpen={modalServicesIsOpen.show} id={modalServicesIsOpen.id}  closeServicesModal={closeServicesModal}/>
+          <ModalAddLocation modalIsOpen={modalAddServicesIsOpen.show}  closeModal={closeAddServicesModal} setDataLocation={setDataLocation}  dataLocation={dataLocation}/>
+          <ModalCollapseRestaurant modalIsOpen={modalIsOpen.show} id={modalIsOpen.id} closeModal={closeModal} />
+          <AddChannelServices modalServicesIsOpen={modalAddChannelServices.show} id={modalAddChannelServices.id}  closeServicesModal={closeAddChannelServices} setDataLocation={setDataLocation} dataLocation={dataLocation}/>
+          <UpdateChannelServices modalServicesIsOpen={modalServicesIsOpen.show} dataUpdateServices={modalServicesIsOpen.dataUpdateServices}  closeServicesModal={closeServicesModal} setDataLocation={setDataLocation} dataLocation={dataLocation} locationName={modalServicesIsOpen.locationNameModal}/>
         </div>
       );
 }

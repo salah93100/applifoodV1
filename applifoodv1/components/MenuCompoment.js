@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
 import { MdHistory, MdAdd, MdFileUpload,MdModeEditOutline,MdRemoveRedEye,MdMoreHoriz} from "react-icons/md";
 import { Space, Table,Tag } from 'antd';
@@ -140,7 +141,8 @@ export default function MenuPage() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-2-4">
+      <div className="flex flex-col space-y-2">
+     
         <p className="">Affiche 3 de X Établissements</p>
         <Table columns={columns} dataSource={data} />
       </div>

@@ -1,12 +1,16 @@
 import Modal from "react-modal";
 import { MdOutlineCancel } from "react-icons/md";
 import ModalInput from "./ModalInput";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import InputSelect from "./InputSelect";
 
-const ModalCollapseServices = ({
+const UpdateChannelServices = ({
   modalServicesIsOpen,
   closeServicesModal,
-  id,
+  dataUpdateServices,
+  setDataLocation,
+  dataLocation,
+  locationName
 }) => {
   const customStyles = {
     overlay: {
@@ -40,10 +44,43 @@ const ModalCollapseServices = ({
     setdataModal({ ...dataModal, [name]: value });
   };
 
+  const handleUpdateChannelServices = (nameChannelServicesID,idLocation) => {
+ //Array
+ setDataLocation(dataLocation.map(location=>
+
+ location.locationName === idLocation ?{...location,
+  serviceChannel:location.serviceChannel.map(
+    services=>services.id===nameChannelServicesID?dataModal:{...services})
+ }  :location))
+
+ 
+ 
+
+ //Array
+
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(dataModal);
+    handleUpdateChannelServices(dataModal.id,locationName)
+    console.log(dataLocation);
   };
+useEffect(() => {
+  if(dataUpdateServices){
+    setdataModal({
+      deliveryService:dataUpdateServices?.deliveryService,
+      urlStore:dataUpdateServices?.urlStore,
+      id:dataUpdateServices?.id
+    })
+  }
+  return () => {
+    setdataModal({})
+  };
+}, [dataUpdateServices]);
+
+
+
 
   return (
     <>
@@ -60,21 +97,27 @@ const ModalCollapseServices = ({
           <MdOutlineCancel size={26} color="#42526E" />
         </button>
         <div className="flex flex-col w-full space-y-6">
+          {console.log(dataModal.id+"loc")}
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col space-y-3">
-              <p className="text-4xl my-2">Modifier Services numéro {id}</p>
+            <div className="flex flex-col space-y-6">
+              <p className="text-4xl my-2 text-[#03002b]">Modifier Services{dataUpdateServices?.deliveryService} </p>
 
-              <ModalInput
-                label={"Services"}
-                name={"service"}
-                handleChange={handleChange}
-                value={dataModal?.service}
+              <InputSelect
+              name="deliveryService"
+              label={"Services"}
+              value={dataModal.deliveryService}
+              onChange={handleChange} 
+              options={[{value:"Uber",label:"Uber"},{value:"Deliveroo",label:"Deliveroo"},{value:"JustEat",label:"Just Eat"}]}
               />
+             
+
+           
               <ModalInput
                 label={"Quel est le lien de votre Store"}
-                name={"urlWebsite"}
+                name={"urlStore"}
                 handleChange={handleChange}
-                value={dataModal?.urlWebsite}
+                value={dataModal.urlStore}
+                placeHolder="https://www.ubereats.com/ghent/food-delivery/example-store/"
               />
               <div className="flex flex-row gap-2 sticky my-2">
                 <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-400 flex items-center gap-1">
@@ -84,7 +127,7 @@ const ModalCollapseServices = ({
                   className="flex items-center hover:bg-slate-200 px-4 py-2 "
                   onClick={closeServicesModal}
                 >
-                  Canceled
+                  Annuler
                 </button>
               </div>
             </div>
@@ -94,4 +137,4 @@ const ModalCollapseServices = ({
     </>
   );
 };
-export default ModalCollapseServices;
+export default UpdateChannelServices;

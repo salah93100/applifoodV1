@@ -3,7 +3,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import ModalInput from "./ModalInput";
 import { useState } from "react";
 
-const ModalAddLocation = ({ modalIsOpen, closeModal }) => {
+const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocation }) => {
   const customStyles = {
     overlay: {
       position: "fixed",
@@ -42,6 +42,7 @@ const ModalAddLocation = ({ modalIsOpen, closeModal }) => {
   const handleSubmit=(e)=>{
      e.preventDefault();
      console.log(dataModal)
+     setDataLocation([...dataLocation,dataModal])
   }
   return (
     <>

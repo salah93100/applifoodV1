@@ -13,7 +13,7 @@ select {
   }
 
 .ant-table{
-    margin-inline: 0px -16px !important;
+    margin-inline: 0px 0px !important;
 }
 
 .ant-table-expanded-row-fixed{
@@ -26,6 +26,7 @@ select {
 .ant-select-selector{
     padding: 10px !important;
 }
+
 
 
 label{

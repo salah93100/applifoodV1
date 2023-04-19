@@ -63,7 +63,7 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
 
            
             <div className="space-y-4">
-                <div className="flex flex-col ">
+              <div className="flex flex-col ">
               <p className="text-4xl my-2">Adresse du Restaurant</p>
               <ModalInput label={"Rue"} 
               name={"adress"}
