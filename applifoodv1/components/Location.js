@@ -2,7 +2,7 @@ import CollapseItem from './CollapseItem';
 import { useState } from "react";
 import ButtonWithIcon from './ButtonWithIcon';
 import { MdFilterAlt,MdAdd,MdAccessTime} from "react-icons/md";
-import ModalCollapseRestaurant from './ModalCollapseRestaurant'
+import UpdateLocation from './UpdateLocation'
 import UpdateChannelServices from './UpdateChannelServices';
 import ModalAddLocation from './ModalAddLocation';
 import ModalInput from './ModalInput';
@@ -17,8 +17,16 @@ const Location =({})=>{
     const [searchLocation, setSearchLocation] = useState("");
     const arrayLocation = [
       {locationName:"Crispy Nan",
-      nbServices:"3", 
+      nbServices: "3",
       imageSrc:"url:/Test Image",
+      adress: "51 rue Victor Hugo",
+      city: "Montreuil",
+      email: "salah.elbouhali@gmail.com",
+      firstName: "el bouhali",
+      lastName: "Salah",
+      numTelLocation: "0641407649",
+      numberTelContact: "0651407649",
+      postalCode: "93100",
       serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"Uber",nameLocation:"Crispy Nan",id:0},
       {urlStore:"url:/Test channel",deliveryService:"Deliveroo",nameLocation:"Crispy Nan",id:1},
       {urlStore:"url:/Testchannel",deliveryService:"JustEat",nameLocation:"Crispy Nan",id:2}]},
@@ -26,11 +34,27 @@ const Location =({})=>{
       {locationName:"Restaurant fruit de mer",
       nbServices:"3",
       imageSrc:"url:/Test Image",
+      adress: "51 rue Victor Hugo",
+      city: "Montreuil",
+      email: "salah.elbouhali@gmail.com",
+      firstName: "el bouhali",
+      lastName: "Salah",
+      numTelLocation: "0641407649",
+      numberTelContact: "0651407649",
+      postalCode: "93100",
       serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"Deliveroo",nameLocation:"Restaurant fruit de mer",id:0}]},
 
       {locationName:"Le Cabestant",
       nbServices:"3",
       imageSrc:"url:/Test Image",
+      adress: "51 rue Victor Hugo",
+      city: "Montreuil",
+      email: "salah.elbouhali@gmail.com",
+      firstName: "el bouhali",
+      lastName: "Salah",
+      numTelLocation: "0641407649",
+      numberTelContact: "0651407649",
+      postalCode: "93100",
       serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"JustEat",nameLocation:"Le Cabestant",id:0}]}
     ]
     const [dataLocation, setDataLocation] = useState(arrayLocation);
@@ -57,8 +81,8 @@ const Location =({})=>{
       const [modalAddChannelServices, setModalAddChannelServices] = useState({show:false,id:""});
 
   
-      const openModal=(index)=>{
-        setModalIsOpen({show:true,id:index});
+      const openUpdateLocationModal=(locationData)=>{
+        setModalIsOpen({show:true,locationData:locationData});
       }
 
       const openServicesModal=(data,locationNameModal)=>{
@@ -90,7 +114,7 @@ const Location =({})=>{
     
     return (
         <div className='m-2 px-6 space-y-2'>
-          {console.log(openFilter)}
+          {console.log(dataLocation)}
           <div className='flex flex-col'>
           <div className='flex flex-row gap-2 my-2 py-2'>
             <ButtonWithIcon text={"Filtrer"} Icon={MdFilterAlt} onClick={toogleFilter}/>
@@ -131,7 +155,7 @@ const Location =({})=>{
                 colapseData={Location} 
                 toogle={()=>toogle(index)} 
                 imageSrc={Location.imageSrc}
-                openModal={()=>openModal(index)}
+                openUpdateLocationModal={()=>openUpdateLocationModal(Location)}
                 openServicesModal={openServicesModal}
                 openAddChannelServices={openAddChannelServices}
                 serviceChannel={Location.serviceChannel}
@@ -144,7 +168,7 @@ const Location =({})=>{
             
        
           <ModalAddLocation modalIsOpen={modalAddServicesIsOpen.show}  closeModal={closeAddServicesModal} setDataLocation={setDataLocation}  dataLocation={dataLocation}/>
-          <ModalCollapseRestaurant modalIsOpen={modalIsOpen.show} id={modalIsOpen.id} closeModal={closeModal} />
+          <UpdateLocation modalIsOpen={modalIsOpen.show} locationData={modalIsOpen.locationData} closeModal={closeModal} setDataLocation={setDataLocation} dataLocation={dataLocation}/>
           <AddChannelServices modalServicesIsOpen={modalAddChannelServices.show} id={modalAddChannelServices.id}  closeServicesModal={closeAddChannelServices} setDataLocation={setDataLocation} dataLocation={dataLocation}/>
           <UpdateChannelServices modalServicesIsOpen={modalServicesIsOpen.show} dataUpdateServices={modalServicesIsOpen.dataUpdateServices}  closeServicesModal={closeServicesModal} setDataLocation={setDataLocation} dataLocation={dataLocation} locationName={modalServicesIsOpen.locationNameModal}/>
         </div>

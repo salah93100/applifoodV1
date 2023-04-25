@@ -80,7 +80,7 @@ const [dataMenu, setDataMenu] = useState({});
 
             <div className="space-y-4">
                 <div className="flex flex-col gap-4">
-                    {console.log(dataMenu)}
+                    {console.log(data)}
                 <label 
        for={"imageMenu"}
        class="block mb-2 text-xl font-medium ">{"Image du Menu"}</label>

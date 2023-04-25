@@ -1,8 +1,8 @@
 import Modal from "react-modal";
 import { MdOutlineCancel } from "react-icons/md";
 import ModalInput from "./ModalInput";
-import { useState } from "react";
-const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
+import { useState,useEffect } from "react";
+const UpdateLocation = ({ modalIsOpen, closeModal, locationData, setDataLocation, dataLocation}) => {
   const customStyles = {
     overlay: {
       position: "fixed",
@@ -37,11 +37,31 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
  
     setdataModal({...dataModal,[name]:value})
   }
+  const handleUpdateLocation = () => {
+    //Array Map and condition for update services 
+   
+    setDataLocation(dataLocation.map(location=>
+   
+    location.locationName === locationData.locationName ?dataModal:location))
+   
+  };
  
   const handleSubmit=(e)=>{
      e.preventDefault();
+     handleUpdateLocation()
      console.log(dataModal)
+     closeModal()
   }
+
+  useEffect(() => {
+    if(locationData){
+      setdataModal(locationData)
+    }
+    return () => {
+      setdataModal({})
+    };
+  }, [locationData]);
+  
   return (
     <>
       <Modal
@@ -54,12 +74,19 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
           <MdOutlineCancel size={26} color="#42526E" />
         </button>
         <div className="my-2">
-            <p className="text-4xl">Modifier Location numéro {id}</p>
+          {console.log(dataModal)}
+            <p className="text-4xl">Modifier Location {dataModal?.locationName}</p>
             </div>
         <div className="flex flex-col w-full ">
           <form className="space-y-4" onSubmit={handleSubmit}> 
             
-            <ModalInput label={" Quel est le nom de votre Cuisine?"} name={"locationName"} handleChange={handleChange} value={dataModal?.locationName}/>
+            <ModalInput 
+            label={" Quel est le nom de votre Cuisine?"} 
+            name={"locationName"} 
+            handleChange={handleChange} 
+            value={dataModal?.locationName}
+            placeHolder={"Nom de la locolation (emplacement)"}
+            />
 
            
             <div className="space-y-4">
@@ -68,13 +95,15 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
               <ModalInput label={"Rue"} 
               name={"adress"}
               handleChange={handleChange}
-              value={dataModal?.adress} />
+              value={dataModal?.adress} 
+              placeHolder={"Ex: 2 rue Dupont..."}/>
               <div className="grid grid-cols-2 gap-2">
               <ModalInput 
               label={"Ville"}
                name={"city"}
                handleChange={handleChange}
                value={dataModal?.city}
+               placeHolder={"Nom de la ville"}
               />
 
               <ModalInput 
@@ -82,6 +111,7 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
               name={"postalCode"}
               handleChange={handleChange} 
               value={dataModal?.postalCode}
+              placeHolder={"Ex: 75 001"}
               
               />
               
@@ -89,9 +119,10 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
              
               <ModalInput 
               label={"Num tel"} 
-              name={"numberTel"}
+              name={"numTelLocation"}
               handleChange={handleChange} 
-              value={dataModal?.numberTel}
+              value={dataModal?.numTelLocation}
+              placeHolder={"Ex: +33 6 05 ..."}
               
               />
               </div>
@@ -103,6 +134,7 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
               name={"lastName"}
               handleChange={handleChange} 
               value={dataModal?.lastName}
+              placeHolder={"entrez votre nom"}
               />
 
               <ModalInput 
@@ -110,6 +142,7 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
               name={"firstName"}
               handleChange={handleChange} 
               value={dataModal?.firstName}
+              placeHolder={"entrez votre prénom"}
               />
               </div>
               <ModalInput 
@@ -117,12 +150,14 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
               name={"email"}
               handleChange={handleChange} 
               value={dataModal?.email}
+              placeHolder={"entrez votre email"}
               />
               <ModalInput 
               label={"numéro de télephone"} 
-              name={"numTel"}
+              name={"numberTelContact"}
               handleChange={handleChange} 
-              value={dataModal?.numTel}/>
+              value={dataModal?.numberTelContact}
+              placeHolder={"Ex: +33 6 05 ..."}/>
               </div>
             </div>
           <div className="flex flex-row gap-2 sticky">
@@ -136,4 +171,4 @@ const ModalCollapseRestaurant = ({ modalIsOpen, closeModal, id }) => {
     </>
   );
 };
-export default ModalCollapseRestaurant;
+export default UpdateLocation;

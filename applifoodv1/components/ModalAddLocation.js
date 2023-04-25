@@ -43,6 +43,7 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
      e.preventDefault();
      console.log(dataModal)
      setDataLocation([...dataLocation,dataModal])
+     closeModal()
   }
   return (
     <>
@@ -61,7 +62,12 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
         <div className="flex flex-col w-full ">
           <form className="space-y-4" onSubmit={handleSubmit}> 
             
-            <ModalInput label={" Quel est le nom de votre Cuisine?"} name={"locationName"} handleChange={handleChange} value={dataModal?.locationName}/>
+            <ModalInput 
+            label={" Quel est le nom de votre Cuisine?"} 
+            name={"locationName"} 
+            handleChange={handleChange} 
+            value={dataModal?.locationName}
+            placeHolder={"Nom de la locolation (emplacement)"}/>
 
            
             <div className="space-y-4">
@@ -70,13 +76,16 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
               <ModalInput label={"Rue"} 
               name={"adress"}
               handleChange={handleChange}
-              value={dataModal?.adress} />
+              value={dataModal?.adress} 
+              placeHolder={"Ex: 2 rue Dupont..."}/>
+              
               <div className="grid grid-cols-2 gap-2">
               <ModalInput 
               label={"Ville"}
                name={"city"}
                handleChange={handleChange}
                value={dataModal?.city}
+               placeHolder={"Nom de la ville"}
               />
 
               <ModalInput 
@@ -84,6 +93,7 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
               name={"postalCode"}
               handleChange={handleChange} 
               value={dataModal?.postalCode}
+              placeHolder={"Ex: 75 001"}
               
               />
               
@@ -91,9 +101,10 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
              
               <ModalInput 
               label={"Num tel"} 
-              name={"numberTel"}
+              name={"numTelLocation"}
               handleChange={handleChange} 
               value={dataModal?.numberTel}
+              placeHolder={"Ex: +33 6 05 ..."}
               
               />
               </div>
@@ -105,6 +116,7 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
               name={"lastName"}
               handleChange={handleChange} 
               value={dataModal?.lastName}
+              placeHolder={"entrez votre nom"}
               />
 
               <ModalInput 
@@ -112,6 +124,7 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
               name={"firstName"}
               handleChange={handleChange} 
               value={dataModal?.firstName}
+              placeHolder={"entrez votre prénom"}
               />
               </div>
               <ModalInput 
@@ -119,16 +132,18 @@ const ModalAddLocation = ({ modalIsOpen, closeModal,setDataLocation ,dataLocatio
               name={"email"}
               handleChange={handleChange} 
               value={dataModal?.email}
+              placeHolder={"entrez votre email"}
               />
               <ModalInput 
               label={"numéro de télephone"} 
-              name={"numTel"}
+              name={"numberTelContact"}
               handleChange={handleChange} 
-              value={dataModal?.numTel}/>
+              value={dataModal?.numTel}
+              placeHolder={"Ex: +33 6 05 ..."}/>
               </div>
             </div>
           <div className="flex flex-row gap-2 sticky">
-          <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1">Modifier</button>
+          <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1">Ajouter</button>
           <button className="flex items-center hover:bg-slate-200 px-4 py-2 " onClick={closeModal}>Annuler</button>
           </div>
            

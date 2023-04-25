@@ -45,7 +45,8 @@ const UpdateChannelServices = ({
   };
 
   const handleUpdateChannelServices = (nameChannelServicesID,idLocation) => {
- //Array
+ //Array Map and condition for update services 
+
  setDataLocation(dataLocation.map(location=>
 
  location.locationName === idLocation ?{...location,
