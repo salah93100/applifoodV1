@@ -3,9 +3,9 @@ import { MdOutlineCancel } from "react-icons/md";
 import ModalInput from "./ModalInput";
 import { useState,useEffect } from "react";
 import InputSelect  from "./InputSelect";
-const UpdateMenu = ({ modalIsOpen, closeModal ,data}) => {
+const UpdateMenu = ({ modalIsOpen, closeModal ,data, dataMenu ,setDataMenu}) => {
     
-const [dataMenu, setDataMenu] = useState({});
+const [dataPushMenu, setDataPushMenu] = useState({});
 
 
   const customStyles = {
@@ -39,24 +39,34 @@ const [dataMenu, setDataMenu] = useState({});
   const handleChange=(e)=>{
     const {value, name}=e.target
  
-    setDataMenu({...dataMenu,[name]:value})
+    setDataPushMenu({...dataPushMenu,[name]:value})
   }
   const handleUploadImage=(e)=>{
     const {files, name}=e.target
  
-    setDataMenu({...dataMenu,[name]:files[0]})
+    setDataPushMenu({...dataPushMenu,[name]:files[0]})
   }
+  const handleUpdateMenu = () => {
+    //Array Map and condition for update services 
+   
+    setDataMenu(dataMenu.map(menu=>
+   
+    menu.menuName === data.menuName ?dataPushMenu:menu))
+   
+  };
  
   const handleSubmit=(e)=>{
      e.preventDefault();
-     console.log(dataMenu)
+     handleUpdateMenu();
+     closeModal();
+
   }
 
 
   useEffect(() => {
-    setDataMenu(data)
+    setDataPushMenu(data)
     return () => {
-      setDataMenu({})
+      setDataPushMenu({})
     };
   }, [data]);
   return (
@@ -71,7 +81,7 @@ const [dataMenu, setDataMenu] = useState({});
           <MdOutlineCancel size={26} color="#42526E" />
         </button>
         <div className="my-2">
-          {console.log(dataMenu)}
+          {console.log(dataPushMenu)}
             <p className="text-4xl">Modifier un menu</p>
             </div>
            
@@ -80,7 +90,7 @@ const [dataMenu, setDataMenu] = useState({});
 
             <div className="space-y-4">
                 <div className="flex flex-col gap-4">
-                    {console.log(data)}
+                  
                 <label 
        for={"imageMenu"}
        class="block mb-2 text-xl font-medium ">{"Image du Menu"}</label>
@@ -88,6 +98,7 @@ const [dataMenu, setDataMenu] = useState({});
          type="file"
          id="imgUrl"
          name="imgUrl"
+     
          className="border  w-full py-3 rounded focus:ring-blue-500 focus:border-blue-500 px-3"
          onChange={handleUploadImage}
                 />
@@ -96,14 +107,14 @@ const [dataMenu, setDataMenu] = useState({});
               label={"Nom du menu (plateformes)"}
                name={"menuName"}
                handleChange={handleChange}
-               value={dataMenu?.menuName}
+               value={dataPushMenu?.menuName}
               />
 
               <ModalInput 
               label={"Nom du menu en interne"} 
               name={"LocalMenuName"}
               handleChange={handleChange} 
-              value={dataMenu?.LocalMenuName}
+              value={dataPushMenu?.LocalMenuName}
               
               />
               
@@ -119,7 +130,7 @@ const [dataMenu, setDataMenu] = useState({});
  name="descMenu" 
  rows="3" 
  cols="33"
- value={dataMenu?.descMenu}
+ value={dataPushMenu?.descMenu}
  onChange={handleChange} 
  >
 Lorem Ipsum...
@@ -131,14 +142,17 @@ Lorem Ipsum...
               <InputSelect
               name="typeOfMenu"
               label={"Type"}
-              value={dataMenu?.typeOfMenu}
+              value={dataPushMenu?.typeOfMenu}
               onChange={handleChange} 
-              options={[{value:"Burger",label:"burgerTime"},{value:"Tajine",label:"tajineTime"}]}/>
+              options={[{value:"delivery",label:"Emporter"},
+              {value:"eatIn",label:"Sur place"},
+              {value:"clickAndCollect",label:"Click & collect"}]}
+              />
  
              <InputSelect
               name="ProductUsed"
               label={"Produit utilisé"}
-              value={dataMenu?.ProductUsed}
+              value={dataPushMenu?.ProductUsed}
               onChange={handleChange} 
               options={[{value:"ingerdient",label:"Ingredien 1"},{value:"ingredient",label:"Ingredien 2"}]}/>
 
@@ -149,7 +163,7 @@ Lorem Ipsum...
               </div>
             </div>
           <div className="flex flex-row gap-2 sticky">
-          <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1">Ajouter le menu</button>
+          <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1">Modifier le menu</button>
           <button className="flex items-center hover:bg-slate-200 px-4 py-2 " onClick={closeModal}>Annuler</button>
           </div>
            

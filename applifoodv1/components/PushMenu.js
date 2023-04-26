@@ -55,7 +55,7 @@ const PushMenu = ({ modalIsOpen, closeModal ,data}) => {
     Channel:{}
  });
  const [dataMenuName, setDataMenuName] = useState([]);
-
+ const [sendPushMenu, setSendPushMenu] = useState(false);
   const handleChange=(e)=>{
     const {name, checked}=e.target
  
@@ -67,6 +67,7 @@ const PushMenu = ({ modalIsOpen, closeModal ,data}) => {
   const handleSubmit=(e)=>{
      e.preventDefault();
      console.log(dataToPushMenu)
+     setSendPushMenu(true)
   }
 
 
@@ -80,13 +81,14 @@ const handleChangeText = (value,x) => {
 
 
 
+
 useEffect(() => {
     if (data){
    
   
         data.map((data,x)=>(setDataMenuName((prevState)=>[...prevState,{
-        label: data.name,
-        value: data.name,
+        label: data.menuName,
+        value: data.menuName,
       } ])))
     }
     return () => {
@@ -102,67 +104,78 @@ useEffect(() => {
       style={customStyles}
       contentLabel="Modal Restaurant"
     >
+      {console.log(data)}
       <button onClick={closeModal} className="absolute right-4 top-3 ">
         <MdOutlineCancel size={26} color="#42526E" />
       </button>
       <div className="space-y-6">
-      <div className="flex my-2 ">
+     
         {console.log(dataToPushMenu)}
-          <p className="text-4xl">Mettre en ligne la carte.</p>
+        {!sendPushMenu?(<><div className="flex my-2 ">
+        <p className="text-4xl">Mettre en ligne la carte.</p>
           </div>
-      <div className="flex flex-col w-full ">
+           <div className="flex flex-col w-full ">
       
-        <form className="space-y-4" onSubmit={handleSubmit}> 
-        
-        <Space
-    style={{
-      width: '100%',
-    }}
-    direction="vertical"
-  >
-    <Select
-      mode="multiple"
-      allowClear
-      style={{
-        width: '100%',
-      }}
-      placeholder="Please select"
-      defaultValue={"Choisissez un Menu"}
-      onChange={handleChangeText}
-      options={dataMenuName}
-    />
-    
-  </Space>
-  
-  <div className="py-3">
-<div className="ml-2 my-4">
-<p className="text-2xl">Channel</p>
-</div>
-<div className="space-y-4 ">
-
-{defaultArrayChannel.map((channel)=>{
-return(
-    
-    <ChannelPushMenu 
-    img={channel.img} 
-    text={channel.text} 
-    onChange={handleChange}
-    Ischecked={dataToPushMenu.Channel[channel.text]}
-    />
-    
-
-)
-})}
-</div>
-
-</div>
-        <div className="flex flex-row gap-2 sticky my-4">
-        <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1">Mettre en ligne les menus</button>
-        <button className="flex items-center hover:bg-slate-200 px-4 py-2 " onClick={closeModal}>Annuler</button>
-        </div>
-         
-        </form>
-      </div>
+           <form className="space-y-4" onSubmit={handleSubmit}> 
+           
+           <Space
+       style={{
+         width: '100%',
+       }}
+       direction="vertical"
+     >
+       <Select
+         mode="multiple"
+         allowClear
+         style={{
+           width: '100%',
+         }}
+         placeholder="Please select"
+         defaultValue={"Choisissez un Menu"}
+         onChange={handleChangeText}
+         options={dataMenuName}
+       />
+       
+     </Space>
+     
+     <div className="py-3">
+   <div className="ml-2 my-4">
+     {console.log(dataMenuName)}
+   <p className="text-2xl">Channel</p>
+   </div>
+   <div className="space-y-4 ">
+   
+   {defaultArrayChannel.map((channel)=>{
+   return(
+       
+       <ChannelPushMenu 
+       img={channel.img} 
+       text={channel.text} 
+       onChange={handleChange}
+       Ischecked={dataToPushMenu.Channel[channel.text]}
+       />
+       
+   
+   )
+   })}
+   </div>
+   
+   </div>
+           <div className="flex flex-row gap-2 sticky my-4">
+           <button className="btn-blue bg-blue-500 text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1">Mettre en ligne les menus</button>
+           <button className="flex items-center hover:bg-slate-200 px-4 py-2 " onClick={closeModal}>Annuler</button>
+           </div>
+            
+           </form>
+         </div></> ) :(
+         <div className="flex flex-col justify-center items-center my-5">
+          <p className="text-xl p-5">Votre menu à bien était publier (notre équipe vous contactera en cas de besoin) </p>
+          <div className="flex flex-row gap-2 sticky my-4">
+           <button className="btn-blue bg-slate-600  text-white px-4 py-2 rounded-sm  hover:text-blue-600 hover:bg-white hover:border hover:border-blue-500 flex items-center gap-1" onClick={closeModal}>Fermer</button>
+           </div>
+         </div>)}
+       
+     
       </div>
     </Modal>
   </>

@@ -3,9 +3,9 @@ import { MdOutlineCancel } from "react-icons/md";
 import ModalInput from "./ModalInput";
 import { useState } from "react";
 import InputSelect  from "./InputSelect";
-const AddMenu = ({ modalIsOpen, closeModal }) => {
+const AddMenu = ({ modalIsOpen, closeModal ,setDataMenu,dataMenu}) => {
     
-const [dataMenu, setDataMenu] = useState( {
+const [dataPushMenu, setDataPushMenu] = useState( {
     key: Math.round(Math.random() * 10),
     imgUrl:'',
     descMenu:'',
@@ -48,17 +48,20 @@ const [dataMenu, setDataMenu] = useState( {
   const handleChange=(e)=>{
     const {value, name}=e.target
  
-    setDataMenu({...dataMenu,[name]:value})
+    setDataPushMenu({...dataPushMenu,[name]:value})
   }
   const handleUploadImage=(e)=>{
     const {files, name}=e.target
  
-    setDataMenu({...dataMenu,[name]:files[0]})
+    setDataPushMenu({...dataPushMenu,[name]:files[0]})
   }
  
   const handleSubmit=(e)=>{
      e.preventDefault();
-     console.log(dataMenu)
+     console.log(dataPushMenu)
+     setDataMenu([...dataMenu,dataPushMenu])
+     closeModal()
+     setDataPushMenu({})
   }
   return (
     <>
@@ -96,15 +99,16 @@ const [dataMenu, setDataMenu] = useState( {
               label={"Nom du menu (plateformes)"}
                name={"menuName"}
                handleChange={handleChange}
-               value={dataMenu?.menuName}
+               value={dataPushMenu?.menuName}
+               placeHolder={"Entrer le nom du menu"}
               />
 
               <ModalInput 
               label={"Nom du menu en interne"} 
               name={"LocalMenuName"}
               handleChange={handleChange} 
-              value={dataMenu?.LocalMenuName}
-              
+              value={dataPushMenu?.LocalMenuName}
+              placeHolder={"Entrer le nom du menu en Local"}             
               />
               
               </div>
@@ -119,10 +123,11 @@ const [dataMenu, setDataMenu] = useState( {
  name="descMenu" 
  rows="3" 
  cols="33"
- value={dataMenu.descMenu}
+ value={dataPushMenu.descMenu}
  onChange={handleChange} 
+ className="text-slate-400 pl-2 pt-2"
  >
-Lorem Ipsum...
+Décrire votre menu...
 </textarea>
               </div>
               <div className="flex flex-col">
@@ -131,14 +136,16 @@ Lorem Ipsum...
               <InputSelect
               name="typeOfMenu"
               label={"Type"}
-              value={dataMenu.typeOfMenu}
+              value={dataPushMenu.typeOfMenu}
               onChange={handleChange} 
-              options={[{value:"Burger",label:"burgerTime"},{value:"Tajine",label:"tajineTime"}]}/>
+              options={[{value:"delivery",label:"Emporter"},
+              {value:"eatIn",label:"Sur place"},
+              {value:"clickAndCollect",label:"Click & collect"}]}/>
  
              <InputSelect
               name="ProductUsed"
               label={"Produit utilisé"}
-              value={dataMenu.ProductUsed}
+              value={dataPushMenu.ProductUsed}
               onChange={handleChange} 
               options={[{value:"ingerdient",label:"Ingredien 1"},{value:"ingredient",label:"Ingredien 2"}]}/>
 
