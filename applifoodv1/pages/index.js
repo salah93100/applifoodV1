@@ -5,6 +5,7 @@ import Topbar from '../components/Topbar'
 import Orders from '../components/Order'
 import Location from '../components/Location';
 import MenuPage from '../components/MenuCompoment';
+import Link from 'next/link';
 export default function HomePage() {
   return (
     <div>
@@ -12,20 +13,12 @@ export default function HomePage() {
         <title>Applifood</title>
         
        </Head>
-       
-        <div className="flex w-full text-[#42526E] h-full">
-      
-      <div className='flex-4 bg-[#F8F9FB] border border-r-[#E5E9F2] h-screen  w-64 fixed'>
-        <UserRestaurant/>
-     <Sidebar/>
-     </div>
-     <div className='flex-1 sticky ml-64 items-center '>
-        <Topbar/>
-        <MenuPage/>
-       
-     </div>
+      <div className='h-screen flex justify-center '>
+        <div className="flex flex-col w-full text-[#42526E] h-full justify-center items-center gap-4">
+    <p className='text-4xl'>Home Page is building...⏳</p>
+    <Link href="/dashboard/orders" className='text-white px-3 py-3 bg-blue-600 rounded hover:bg-white hover:text-blue-600'>Go to the dashboard Applifood</Link>
     </div>
-   
+    </div> 
  </div>
   )
 }

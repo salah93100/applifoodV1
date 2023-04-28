@@ -27,7 +27,7 @@ export default function MenuPage() {
     setPushMenuIsOpen({show:false,id:[]});
   }
   const openPushMenu=()=>{
-    setPushMenuIsOpen({show:true,data:data});
+    setPushMenuIsOpen({show:true,data:dataMenu});
   }
 
   const openUpdateMenu=(dataToUpdate)=>{

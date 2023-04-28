@@ -7,7 +7,7 @@ const Topbar=({tittle,numbernNotification})=> {
         <div className='flex  justify-between mx-4 items-center h-full w-full'>
             <div className='flex items-center'>
             
-            <p className='font-semibold text-[16px] '>Orders</p>
+            <p className='font-semibold text-[16px] '></p>
             </div>
 
             <div className='flex items-center justify-between min-w-[94px]'>

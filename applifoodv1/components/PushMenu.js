@@ -6,22 +6,30 @@ import InputSelect from "./InputSelect";
 import { Select, Space } from 'antd';
 import ServicesCollapse from "./ServicesCollapse";
 import ChannelPushMenu from "./ChannelPushMenu";
+import uberPic from  '../public/images/uber-eats.svg'
+import deliverooPic from  '../public/images/deliveroo-logo.svg'
+import justEatPic from  '../public/images/just-eat.svg'
+
 const PushMenu = ({ modalIsOpen, closeModal ,data}) => {
   const defaultArrayChannel=[
     {
         img:"urls",
         text:"Uber",
-        value:"restaurant Ghost"
+        value:"restaurant Ghost",
+        urlChannel:uberPic
     },
     {
         img:"url/image4",
         text:"DELIVEROO",
-        value:"restaurant france"
+        value:"restaurant france",
+        urlChannel:deliverooPic
+        
     },
     {
         img:"url image 3",
         text:"Just Eat",
-        value:"restaurant 3"
+        value:"restaurant 3",
+        urlChannel:justEatPic
     }
   ]
     const customStyles = {
@@ -149,7 +157,7 @@ useEffect(() => {
    return(
        
        <ChannelPushMenu 
-       img={channel.img} 
+       img={channel.urlChannel} 
        text={channel.text} 
        onChange={handleChange}
        Ischecked={dataToPushMenu.Channel[channel.text]}

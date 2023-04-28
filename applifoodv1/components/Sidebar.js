@@ -10,8 +10,8 @@ const Sidebar=({children})=> {
             <ItemSidebar target="/dashboard/orders" itemName="Commande"  Icon={MdReceiptLong}/>
             <ItemSidebar target="/dashboard/location" itemName="Location" Icon={MdStore}/>
             <ItemSidebar target="/dashboard/menu" itemName="Menus" Icon={MdRestaurantMenu}/>
-            <ItemSidebar target="/dashboard/Integration" itemName="Integration" Icon={MdDashboardCustomize}/>
-            <ItemSidebar target="/dashboard/Settings" itemName="Settings" Icon={MdOutlineSettings}/>
+            <ItemSidebar target="" itemName="Integration" Icon={MdDashboardCustomize} />
+            <ItemSidebar target="" itemName="Settings" Icon={MdOutlineSettings}/>
         </ul>
     </nav>
   )
