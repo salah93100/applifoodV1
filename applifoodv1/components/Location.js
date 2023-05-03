@@ -9,6 +9,13 @@ import ModalInput from './ModalInput';
 import AddChannelServices from './AddChannelServices';
 
 
+export function numberOfLocation(listLocationLength) {
+  if (listLocationLength > 1) {
+      return listLocationLength
+  }
+  return `${listLocationLength}, valeur location`
+}
+
 
 const Location =({})=>{
 
@@ -28,8 +35,8 @@ const Location =({})=>{
       numberTelContact: "0651407649",
       postalCode: "93100",
       serviceChannel:[{urlStore:"url:/Test channel",deliveryService:"Uber",nameLocation:"Crispy Nan",id:0},
-      {urlStore:"url:/Test channel",deliveryService:"Deliveroo",nameLocation:"Crispy Nan",id:1},
-      {urlStore:"url:/Testchannel",deliveryService:"JustEat",nameLocation:"Crispy Nan",id:2}]},
+      {urlStore:"url:/Test channels",deliveryService:"Deliveroo",nameLocation:"Crispy Nan",id:1},
+      {urlStore:"url:/Testchannelz",deliveryService:"JustEat",nameLocation:"Crispy Nan",id:2}]},
 
       {locationName:"Restaurant fruit de mer",
       nbServices:"3",
@@ -114,12 +121,18 @@ const Location =({})=>{
     
     return (
         <div className='m-2 px-6 space-y-2'>
-          {console.log(dataLocation)}
           <div className='flex flex-col'>
           <div className='flex flex-row gap-2 my-2 py-2'>
+          <button 
+          className="flex items-center hover:bg-slate-200 px-4 py-2 " 
+          data-testid="custom-element"
+          >
+            {`Annuler ${modalAddServicesIsOpen.show}`}
+            </button>
+
             <ButtonWithIcon text={"Filtrer"} Icon={MdFilterAlt} onClick={toogleFilter}/>
-            <ButtonWithIcon text={"Ajouter une Location"} Icon={MdAdd} onClick={openAddServicesModal} />
- 
+            <ButtonWithIcon text={`Ajouter une Location`} Icon={MdAdd} onClick={openAddServicesModal} />
+       
           </div>
           {openFilter?(<div>
           <label 
@@ -138,7 +151,6 @@ const Location =({})=>{
            </div>):""}
           
            </div>
-          {console.log(dataLocation)}
             <p className=''>Affiche {dataLocation.length} de {dataLocation.length} Établissements</p>
 
             {dataLocation.filter((filterLocation)=>{
@@ -161,7 +173,10 @@ const Location =({})=>{
                 serviceChannel={Location.serviceChannel}
                 setDataLocation={setDataLocation}
                 locationName={Location.locationName}
-                />
+                >
+                
+                 {numberOfLocation(Location.serviceChannel)}
+                </CollapseItem>
                
               )
             })}

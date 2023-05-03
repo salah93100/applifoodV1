@@ -6,6 +6,7 @@ import Image from "next/image";
 export default function Orders() {
   const [columnss, setColumn] = useState([]);
   const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
 const arrayTestOrder=
@@ -207,58 +208,72 @@ const arrayTestOrder=
   const onChange = (pagination, filters, sorter, extra) => {};
 
   useEffect(() => {
+    const fetchCommand = async ()=>{
+  try{
     fetch("https://dummyjson.com/products")
-      .then((res) => res.json())
-      .then((response) => setDataSource(response.products));
-
+    .then((res) => res.json())
+    .then((response) => setDataSource(response.products));
+  }catch(err){
+    console.log(err)
+  }
+    }
+   
+    fetchCommand()
     return () => {
       setDataSource([]);
+      setLoading(true)
     };
   }, []);
 
   return (
     <div className="w-full ">
       {console.log(dataSource)}
-      
-      
-      <div className="my-4 px-2">
+      <ul>
+      {dataSource.map((data)=>
+       (<li key={data.id}>{data.title}</li>))
+       }
+       </ul>
+      {loading?(<div className="text-3xl" data-testid="loadingDiv" >Chargement...⏳</div>
+      ):(<div className="my-4 px-2"  >
 
-        <Table
-          dataSource={arrayTestOrder}
-          rowKey={(record) => record.id} 
-          columns={columns}
-          expandable={{
-            expandedRowRender: (record) => (
-              <ExpandedRowRender
-                data={record.details}
+      <Table
+        dataSource={arrayTestOrder}
+        rowKey={(record) => record.id} 
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <ExpandedRowRender
+              data={record.details}
+              style={{ float: "right" }}
+            />
+          ),
+      
+          rowExpandable: (record) => record.name !== "Not Expandable",
+          expandIcon: ({ expanded, onExpand, record }) =>
+            expanded ? (
+              <button
+                className="p-1 hover:bg-[#E5E9F2] cursor-pointer rounded-full"
                 style={{ float: "right" }}
-              />
+                onClick={(e) => onExpand(record, e)}
+              >
+                <MdOutlineExpandLess size={22} />
+              </button>
+            ) : (
+              <button
+                className="p-1 hover:bg-[#E5E9F2] cursor-pointer rounded-full"
+                style={{ float: "right" }}
+                onClick={(e) => onExpand(record, e)}
+              >
+                <MdOutlineExpandMore size={22} />
+              </button>
             ),
-
-            rowExpandable: (record) => record.name !== "Not Expandable",
-            expandIcon: ({ expanded, onExpand, record }) =>
-              expanded ? (
-                <button
-                  className="p-1 hover:bg-[#E5E9F2] cursor-pointer rounded-full"
-                  style={{ float: "right" }}
-                  onClick={(e) => onExpand(record, e)}
-                >
-                  <MdOutlineExpandLess size={22} />
-                </button>
-              ) : (
-                <button
-                  className="p-1 hover:bg-[#E5E9F2] cursor-pointer rounded-full"
-                  style={{ float: "right" }}
-                  onClick={(e) => onExpand(record, e)}
-                >
-                  <MdOutlineExpandMore size={22} />
-                </button>
-              ),
-            fixed: "right",
-            expandIconColumnIndex: 6,
-          }}
-        />
-      </div>
+          fixed: "right",
+          expandIconColumnIndex: 6,
+        }}
+      />
+      </div>)}
+     
+ 
     </div>
   );
 }

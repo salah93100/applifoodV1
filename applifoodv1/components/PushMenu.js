@@ -153,10 +153,11 @@ useEffect(() => {
    </div>
    <div className="space-y-4 ">
    
-   {defaultArrayChannel.map((channel)=>{
+   {defaultArrayChannel.map((channel,x)=>{
    return(
        
        <ChannelPushMenu 
+       key={x}
        img={channel.urlChannel} 
        text={channel.text} 
        onChange={handleChange}
