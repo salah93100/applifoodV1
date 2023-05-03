@@ -12,7 +12,7 @@ export default function UserRestaurant({src,alt,nameRestaurant}) {
       className=''/>
       </div>
     <div className='text-center'>
-        <p className='font-semibold uppercase'>ID: Cofood</p>
+        <p className='font-semibold uppercase'>ID: foodjer</p>
     </div>
     </div>
   )

@@ -3,7 +3,7 @@ import UserRestaurant from './UserRestaurant';
 import Sidebar from '../components/Sidebar'
 import Topbar from '../components/Topbar'
 import MenuPage from './MenuCompoment';
-import profilePic from  '../public/images/cofoodLogo.jpeg'
+import profilePic from  '../public/images/logo-foodjer.jpeg'
 
 const DashboardUI = ({children }) => {
 
