@@ -213,6 +213,7 @@ const arrayTestOrder=
     fetch("https://dummyjson.com/products")
     .then((res) => res.json())
     .then((response) => setDataSource(response.products));
+    setLoading(false)
   }catch(err){
     console.log(err)
   }
@@ -227,13 +228,9 @@ const arrayTestOrder=
 
   return (
     <div className="w-full ">
-      {console.log(dataSource)}
-      <ul>
-      {dataSource.map((data)=>
-       (<li key={data.id}>{data.title}</li>))
-       }
-       </ul>
-      {loading?(<div className="text-3xl" data-testid="loadingDiv" >Chargement...⏳</div>
+     
+      {loading?(<div className=" flex justify-center h-screen align-center" data-testid="loadingDiv" >
+        <p className="text-3xl">Chargement...⏳</p></div>
       ):(<div className="my-4 px-2"  >
 
       <Table

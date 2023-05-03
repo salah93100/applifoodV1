@@ -123,13 +123,7 @@ const Location =({})=>{
         <div className='m-2 px-6 space-y-2'>
           <div className='flex flex-col'>
           <div className='flex flex-row gap-2 my-2 py-2'>
-          <button 
-          className="flex items-center hover:bg-slate-200 px-4 py-2 " 
-          data-testid="custom-element"
-          >
-            {`Annuler ${modalAddServicesIsOpen.show}`}
-            </button>
-
+        
             <ButtonWithIcon text={"Filtrer"} Icon={MdFilterAlt} onClick={toogleFilter}/>
             <ButtonWithIcon text={`Ajouter une Location`} Icon={MdAdd} onClick={openAddServicesModal} />
        
