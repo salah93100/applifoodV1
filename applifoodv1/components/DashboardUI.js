@@ -3,7 +3,7 @@ import UserRestaurant from './UserRestaurant';
 import Sidebar from '../components/Sidebar'
 import Topbar from '../components/Topbar'
 import MenuPage from './MenuCompoment';
-import profilePic from  '../public/images/brainer.jpeg'
+import profilePic from  '../public/images/delicious.png'
 
 const DashboardUI = ({children }) => {
 
