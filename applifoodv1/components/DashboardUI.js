@@ -3,7 +3,7 @@ import UserRestaurant from './UserRestaurant';
 import Sidebar from '../components/Sidebar'
 import Topbar from '../components/Topbar'
 import MenuPage from './MenuCompoment';
-import profilePic from  '../public/images/YoomyFoodGroup.jpeg'
+import profilePic from  '../public/images/HopDelivery.jpeg'
 
 const DashboardUI = ({children }) => {
 
